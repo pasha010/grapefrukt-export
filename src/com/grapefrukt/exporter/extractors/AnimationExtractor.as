@@ -25,7 +25,8 @@ The views and conclusions contained in the software and documentation are those 
 authors and should not be interpreted as representing official policies, either expressed
 or implied, of grapefrukt games.
 */
-package com.grapefrukt.exporter.extractors {
+
+﻿package com.grapefrukt.exporter.extractors {
 	
 	import adobe.utils.CustomActions;
 	import com.grapefrukt.exporter.animations.Animation;
@@ -38,10 +39,8 @@ package com.grapefrukt.exporter.extractors {
 	
 	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
-
-import mx.logging.Log;
-
-/**
+	
+	/**
 	 * ...
 	 * @author Martin Jonasson, m@grapefrukt.com
 	 */
@@ -57,7 +56,7 @@ import mx.logging.Log;
 		public static function extract(list:AnimationCollection, target:MovieClip, ignore:Array = null):void {
 			Logger.log("AnimationExtractor", "extracting", target.toString());
 			var fragments:Vector.<AnimationFragment> = getFragments(target);
-            Logger.log("source", "message");
+			
 			var parts:Vector.<Child> = ChildFinder.findMultiframe(target);
 			ChildFinder.filter(target, parts, ignore);
 			
