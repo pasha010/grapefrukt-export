@@ -1,4 +1,5 @@
 #grapefrukt exporter
+fixed by "FlexyMind"
 
 The grapefrukt exporter is a set of Actionscript tools to export animations and graphic assets made in Flash authoring to other formats.
 
