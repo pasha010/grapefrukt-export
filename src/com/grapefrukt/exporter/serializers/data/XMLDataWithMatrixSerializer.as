@@ -208,6 +208,14 @@ package com.grapefrukt.exporter.serializers.data {
         if (frameNode.@rotation == (0).toFixed(Settings.rotationPrecision)) {
             delete frameNode.@rotation;
         }
+
+        if (frameNode.@skewX 	== (1).toFixed(Settings.scalePrecision)) {
+            delete frameNode.@scaleX;
+        }
+        if (frameNode.@skewY	== (1).toFixed(Settings.scalePrecision)) {
+            delete frameNode.@scaleY;
+        }
+
     }
 
 /*    protected function stripAnimationFrameDefaults(frameNode:XML):void {
