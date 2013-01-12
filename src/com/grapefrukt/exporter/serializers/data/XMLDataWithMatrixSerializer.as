@@ -27,24 +27,42 @@ package com.grapefrukt.exporter.serializers.data {
 
     public function serialize(target:*, useFilters:Boolean = true):ByteArray {
         var xml:XML = _serialize(target);
-        var ba:ByteArray = new ByteArray;
-        ba.writeUTFBytes(xml.toXMLString());
+        var byteArray:ByteArray = new ByteArray;
+        byteArray.writeUTFBytes(xml.toXMLString());
 
-        if (useFilters) return filter(ba);
-        return ba;
+        if (useFilters) {
+            return filter(byteArray);
+        }
+        return byteArray;
     }
 
     protected function _serialize(target:*):XML {
-        if (target is FontSheet)	 			return serializeFontSheet(FontSheet(target));
+        if (target is FontSheet) {
+            return serializeFontSheet(FontSheet(target));
+        }
+        if (target is VectorTexture) {
+            return serializeVectorTexture(VectorTexture(target));
+        }
 
-        if (target is VectorTexture) 			return serializeVectorTexture(VectorTexture(target));
-        if (target is BitmapTexture) 			return serializeTexture(BitmapTexture(target));
-        if (target is TextureSheet) 			return serializeTextureSheet(TextureSheet(target));
-        if (target is TextureSheetCollection) 	return serializeTextureSheetCollection(TextureSheetCollection(target));
+        if (target is BitmapTexture) {
+            return serializeTexture(BitmapTexture(target));
+        }
+        if (target is TextureSheet) {
+            return serializeTextureSheet(TextureSheet(target));
+        }
+        if (target is TextureSheetCollection) {
+            return serializeTextureSheetCollection(TextureSheetCollection(target));
+        }
 
-        if (target is Animation)				return serializeAnimation(Animation(target));
-        if (target is AnimationCollection)		return serializeAnimationCollection(AnimationCollection(target));
-        if (target is AnimationFrame)			return serializeAnimationFrame(AnimationFrame(target));
+        if (target is Animation) {
+            return serializeAnimation(Animation(target));
+        }
+        if (target is AnimationCollection) {
+            return serializeAnimationCollection(AnimationCollection(target));
+        }
+        if (target is AnimationFrame) {
+            return serializeAnimationFrame(AnimationFrame(target));
+        }
 
         throw new Error("no code to serialize " + target);
         return null;
@@ -140,7 +158,7 @@ package com.grapefrukt.exporter.serializers.data {
             partXML.@name = part.name;
             for (var i:int = 0; i < part.frames.length; i++) {
                 var frameXML:XML = _serialize(part.frames[i]);
-                if (frameXML) {
+                if (frameXML != null) {
                     frameXML.@index = i;
                     partXML.appendChild(frameXML);
                 }
@@ -156,7 +174,6 @@ package com.grapefrukt.exporter.serializers.data {
 
         var xml:XML = <Frame></Frame>;
         var m:Matrix = frame.transformMatrix;
-        var tmp_point:Point = new Point;
 
         if (frame.alpha > 0) {
             // warning. here be matrix math!
@@ -190,31 +207,6 @@ package com.grapefrukt.exporter.serializers.data {
     }
 
     protected static function stripAnimationFrameDefaults(frameNode:XML):void {
-        if (frameNode.@x 		== (0).toFixed(Settings.positionPrecision)) {
-            delete frameNode.@x;
-        }
-        if (frameNode.@y 		== (0).toFixed(Settings.positionPrecision)) {
-            delete frameNode.@y;
-        }
-        if (frameNode.@scaleX 	== (1).toFixed(Settings.scalePrecision)) {
-            delete frameNode.@scaleX;
-        }
-        if (frameNode.@scaleY	== (1).toFixed(Settings.scalePrecision)) {
-            delete frameNode.@scaleY;
-        }
-        if (frameNode.@alpha 	== (1).toFixed(Settings.alphaPrecision)) {
-            delete frameNode.@alpha;
-        }
-        if (frameNode.@rotation == (0).toFixed(Settings.rotationPrecision)) {
-            delete frameNode.@rotation;
-        }
-
-        if (frameNode.@skewX 	== (0).toFixed(Settings.rotationPrecision)) {
-            delete frameNode.@skewX;
-        }
-        if (frameNode.@skewY	== (0).toFixed(Settings.rotationPrecision)) {
-            delete frameNode.@skewY;
-        }
 
     }
 
