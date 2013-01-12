@@ -209,11 +209,11 @@ package com.grapefrukt.exporter.serializers.data {
             delete frameNode.@rotation;
         }
 
-        if (frameNode.@skewX 	== (1).toFixed(Settings.scalePrecision)) {
-            delete frameNode.@scaleX;
+        if (frameNode.@skewX 	== (0).toFixed(Settings.rotationPrecision)) {
+            delete frameNode.@skewX;
         }
-        if (frameNode.@skewY	== (1).toFixed(Settings.scalePrecision)) {
-            delete frameNode.@scaleY;
+        if (frameNode.@skewY	== (0).toFixed(Settings.rotationPrecision)) {
+            delete frameNode.@skewY;
         }
 
     }
