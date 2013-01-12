@@ -159,14 +159,8 @@ package com.grapefrukt.exporter.serializers.data {
         var tmp_point:Point = new Point;
 
         if (frame.alpha > 0) {
-            xml.@x 			= m.tx.toFixed(Settings.positionPrecision);
-            xml.@y 			= m.ty.toFixed(Settings.positionPrecision);
-
             // warning. here be matrix math!
             var scaleX:Number = Math.sqrt(m.a * m.a + m.b * m.b);
-            var scaleY:Number = Math.sqrt(m.c * m.c + m.d * m.d);
-            xml.@scaleX 	= scaleX.toFixed(Settings.scalePrecision)
-            xml.@scaleY 	= scaleY.toFixed(Settings.scalePrecision);
 
             // use a temporary point and transform it using the matrix
             tmp_point.x = 1 / scaleX;
@@ -178,7 +172,6 @@ package com.grapefrukt.exporter.serializers.data {
             // flip rotation (not sure why this is needed)
             rotation *= -1;
 
-            xml.@alpha 		= frame.alpha.toFixed(Settings.alphaPrecision);
             xml.@x          = m.tx.toFixed(Settings.positionPrecision);
             xml.@y          = m.ty.toFixed(Settings.positionPrecision);
             xml.@scaleX 	= m.a.toFixed(Settings.scalePrecision);
@@ -196,8 +189,25 @@ package com.grapefrukt.exporter.serializers.data {
         return xml;
     }
 
-    protected function stripAnimationFrameDefaults(frameNode:XML):void {
-
+    protected static function stripAnimationFrameDefaults(frameNode:XML):void {
+        if (frameNode.@x 		== (0).toFixed(Settings.positionPrecision)) {
+            delete frameNode.@x;
+        }
+        if (frameNode.@y 		== (0).toFixed(Settings.positionPrecision)) {
+            delete frameNode.@y;
+        }
+        if (frameNode.@scaleX 	== (1).toFixed(Settings.scalePrecision)) {
+            delete frameNode.@scaleX;
+        }
+        if (frameNode.@scaleY	== (1).toFixed(Settings.scalePrecision)) {
+            delete frameNode.@scaleY;
+        }
+        if (frameNode.@alpha 	== (1).toFixed(Settings.alphaPrecision)) {
+            delete frameNode.@alpha;
+        }
+        if (frameNode.@rotation == (0).toFixed(Settings.rotationPrecision)) {
+            delete frameNode.@rotation;
+        }
     }
 
 /*    protected function stripAnimationFrameDefaults(frameNode:XML):void {
