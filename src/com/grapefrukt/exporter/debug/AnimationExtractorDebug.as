@@ -97,12 +97,13 @@ package com.grapefrukt.exporter.debug {
 			for each (var partname:String in animation.partNames) {
 				var bone:DisplayObject = skeleton.getChildByName(partname);
 				var animationframe:AnimationFrame = animation.getFrame(partname, frame);
-				bone.x        = animationframe.x;
-				bone.y        = animationframe.y;
-				bone.scaleX   = animationframe.scaleX;
-				bone.scaleY   = animationframe.scaleY;
+				bone.x        = animationframe.transformMatrix.tx;
+				bone.y        = animationframe.transformMatrix.ty;
+				bone.scaleX   = animationframe.transformMatrix.a;
+				bone.scaleY   = animationframe.transformMatrix.d;
 				bone.alpha    = animationframe.alpha;
-				bone.rotation = animationframe.rotation;
+				bone.rotationX = animationframe.transformMatrix.b;
+                bone.rotationY = animationframe.transformMatrix.c;
 			}
 		}
 		

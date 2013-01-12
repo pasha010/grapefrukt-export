@@ -34,7 +34,8 @@ package com.grapefrukt.exporter.serializers.data {
 	 * ...
 	 * @author Martin Jonasson, m@grapefrukt.com
 	 */
-	public class XMLAtlasDataSerializer extends XMLDataSerializer {
+	public class XMLAtlasDataSerializer extends XMLDataWithMatrixSerializer {
+
 		
 		protected var _use_pixel_coords	:Boolean;
 		protected var _atlaspacker		:PNGAtlasPackerSerializer;

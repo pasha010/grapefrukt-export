@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib-swc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib-swc/blooddy_crypto.swc!/" />
+      <root url="jar://$PROJECT_DIR$/lib-swc/fzip.swc!/" />
+      <root url="jar://$PROJECT_DIR$/lib-swc/as3swf.swc!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
