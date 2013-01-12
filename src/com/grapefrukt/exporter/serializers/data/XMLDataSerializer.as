@@ -187,27 +187,27 @@ package com.grapefrukt.exporter.serializers.data {
 			if (frame.alpha > 0) {
 				xml.@x 			= m.tx.toFixed(Settings.positionPrecision)
 				xml.@y 			= m.ty.toFixed(Settings.positionPrecision)
-
+				
 				// warning. here be matrix math!
 				var scaleX:Number = Math.sqrt(m.a * m.a + m.b * m.b);
 				var scaleY:Number = Math.sqrt(m.c * m.c + m.d * m.d);
 				xml.@scaleX 	= scaleX.toFixed(Settings.scalePrecision)
 				xml.@scaleY 	= scaleY.toFixed(Settings.scalePrecision);
-
+				
 				// use a temporary point and transform it using the matrix
 				tmp_point.x = 1 / scaleX;
 				tmp_point.y = 0;
 				tmp_point = m.deltaTransformPoint(tmp_point);
-
+				
 				// figure out rotation using atan2 and round using the set precision
 				var rotation:Number = ((180 / Math.PI) * Math.atan2(tmp_point.x, tmp_point.y) - 90);
 				// flip rotation (not sure why this is needed)
 				rotation *= -1;
 				// finally wrap rotation to be between -180 and 180 (as is normal flash behaviour) and round off to specified number of decimals
 				xml.@rotation 	= wrap(rotation).toFixed(Settings.rotationPrecision);
-
+				
 				// and we return to our regular, non matrix programme!
-
+				
 				xml.@alpha 		= frame.alpha.toFixed(Settings.alphaPrecision);
 				
 				stripAnimationFrameDefaults(xml);
@@ -218,7 +218,7 @@ package com.grapefrukt.exporter.serializers.data {
 			return xml;
 		}
 		
-		protected function stripAnimationFrameDefaults(frameNode:XML):void {
+		private function stripAnimationFrameDefaults(frameNode:XML):void {
 			if (frameNode.@x 		== (0).toFixed(Settings.positionPrecision)) delete frameNode.@x;
 			if (frameNode.@y 		== (0).toFixed(Settings.positionPrecision)) delete frameNode.@y;
 			if (frameNode.@scaleX 	== (1).toFixed(Settings.scalePrecision)) 	delete frameNode.@scaleX;
@@ -230,6 +230,8 @@ package com.grapefrukt.exporter.serializers.data {
 		protected function serializeFontSheet(sheet:FontSheet):XML {
 			var xml:XML = <FontData></FontData>;
 			xml.Texture = sheet.filenameWithPath;
+			xml.Width = sheet.mergedTexture.bounds.width;
+			xml.Height = sheet.mergedTexture.bounds.height;
 			xml.LineHeight = sheet.lineHeight;
 			xml.CharSpace = sheet.charSpace;
 			xml.WordSpace = sheet.wordSpace;
@@ -250,7 +252,7 @@ package com.grapefrukt.exporter.serializers.data {
 			return xml;
 		}
 		
-		protected static function wrap(value:Number, max:Number = 180, min:Number = -180):Number {
+		private static function wrap(value:Number, max:Number = 180, min:Number = -180):Number {
 			while (value >= max) value -= (max - min);
 			while (value < min) value += (max - min);
 			return value;

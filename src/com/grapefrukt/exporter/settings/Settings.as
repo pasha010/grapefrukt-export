@@ -55,15 +55,15 @@ package com.grapefrukt.exporter.settings {
 		/**
 		 * The desired number of decimal places in exported position values
 		 */
-		static public var positionPrecision	:uint = 6;
+		static public var positionPrecision	:uint = 2;
 		/**
 		 * The desired number of decimal places in exported scale values
 		 */
-		static public var scalePrecision	:uint = 6;
+		static public var scalePrecision	:uint = 3;
 		/**
 		 * The desired number of decimal places in exported rotation values
 		 */
-		static public var rotationPrecision	:uint = 6;
+		static public var rotationPrecision	:uint = 3;
 		/**
 		 * The desired number of decimal places in exported alpha values
 		 */
