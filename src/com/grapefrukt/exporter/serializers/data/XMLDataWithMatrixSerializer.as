@@ -218,16 +218,6 @@ package com.grapefrukt.exporter.serializers.data {
 
     }
 
-/*    protected function stripAnimationFrameDefaults(frameNode:XML):void {
-        if (frameNode.@x 		== (0).toFixed(Settings.positionPrecision)) delete frameNode.@x;
-        if (frameNode.@y 		== (0).toFixed(Settings.positionPrecision)) delete frameNode.@y;
-        if (frameNode.@scaleX 	== (1).toFixed(Settings.scalePrecision)) 	delete frameNode.@scaleX;
-        if (frameNode.@scaleY	== (1).toFixed(Settings.scalePrecision)) 	delete frameNode.@scaleY;
-        if (frameNode.@alpha 	== (1).toFixed(Settings.alphaPrecision)) 	delete frameNode.@alpha;
-        if (frameNode.@rotation == (0).toFixed(Settings.rotationPrecision)) delete frameNode.@rotation;
-    }
-
-*/
     protected function serializeFontSheet(sheet:FontSheet):XML {
         var xml:XML = <FontData></FontData>;
         xml.Texture = sheet.filenameWithPath;
